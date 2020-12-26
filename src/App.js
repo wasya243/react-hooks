@@ -1,25 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import {createBrowserHistory} from 'history';
+import {Router, Switch, Route} from 'react-router-dom';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import UsersView from './views/UsersView'
+import OrganizationsView from './views/OrganizationsView'
+import DB from './lib/database'
+
+const history = createBrowserHistory()
+
+const App = () => {
+    DB.init()
+
+    return (
+        <Router history={history}>
+            <Switch>
+                <Route path="/users">
+                    <UsersView/>
+                </Route>
+                <Route path="/organizations">
+                    <OrganizationsView/>
+                </Route>
+            </Switch>
+        </Router>
+    )
 }
 
-export default App;
+export default App
